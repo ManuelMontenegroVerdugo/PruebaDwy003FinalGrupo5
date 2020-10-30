@@ -147,7 +147,8 @@ function validarEmail() {
 
     if (validar_email(email)) {
         return true;
-    } else {
+    }
+    else{
         alert("El email NO es correcto");
         return false;
     }
@@ -188,5 +189,5 @@ function ValidarFormulario() {
     if (validarPassword() == false) {
         resp = false;
     }
-    return false;
+    
 }

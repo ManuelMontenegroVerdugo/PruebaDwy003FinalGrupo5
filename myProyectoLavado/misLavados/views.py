@@ -156,18 +156,16 @@ def registro(request):
         usuario = request.POST.get("txtUsuario")
         pass1 = request.POST.get("txtContrasenia")
         pass2 = request.POST.get("txtContrasenia2")
-
-        if pass1!=pass2:
-            return render(request,'web/registro.html',{'msg':'claves incorrectas'})
-
         try:
             usu = User.objects.get(username=usuario)
-            return render(request,'web/registro.html',{'msg':'usuario existente'})
+            return render(request,'web/registro.html',{'msg':'usuario existente!'})
         except:
             try:
                 usu = User.objects.get(email=email)
-                return render(request,'web/registro.html',{'msg': 'email existente '})
+                return render(request,'web/registro.html',{'msg':'email existente!'}) 
             except:
+                if pass1!=pass2:
+                    return render(request,'web/registro.html',{'msg':'claves incorrectas'})
                 usu = User()
                 usu.first_name = nombre
                 usu.last_name = apellido
@@ -177,8 +175,7 @@ def registro(request):
                 usu.save()
                 usu = authenticate(request,username=usuario, password=pass1)
                 login_autent(request,usu)
-                return render(request,'web/index.html')
-                sliders = SliderIndex.objects.all() 
+                sliders = SliderIndex.objects.all()  
                 return render(request,'web/index.html',{'imagenes': sliders})
     return render(request,'web/registro.html')
 
